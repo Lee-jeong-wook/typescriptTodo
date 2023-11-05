@@ -1,5 +1,15 @@
+import TodoReducer from "./Interfaces/Interface"
 
+const todoContext = (state:TodoReducer, action:TodoReducer) => {
+    switch (action.type) {
+        case 'AddTodo' : 
+        
+        break;
+        case 'DeleteTodo' : 
 
-const todoContext = (state:number, action:string) => {
-
+        break;
+        case 'EditTodo' : 
+        
+        break;
+    }
 }
