@@ -9,17 +9,24 @@ const Form = styled.div`
     // border-radius: 20px;
     // box-shadow: 10px 10px 10px #555;
 `;
+interface InputFormProps {
+    onSubmit: React.Dispatch<{ id: number; text: string }>;
+}
 
-export const InputForm = () => {
+export const InputForm = ({ onSubmit }: InputFormProps) => {
     const [value, setValue] = useState("");
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setValue(e.target.value);
     }
 
-    const onSubmit = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-        if (e.keyCode === 13) {
-            console.log(value);
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+        if (e.key === 'Enter') {
+            onSubmit({
+                id: Math.floor(Math.random() * 10000),
+                text: value
+            });
+            setValue('');
         }
     }
 
@@ -29,7 +36,7 @@ export const InputForm = () => {
             <label>
                 <input
                     type="text"
-                    onKeyDown={onSubmit}
+                    // onKeyDown={onSubmit}
                     value={value}
                     onChange={onChange}
                 />

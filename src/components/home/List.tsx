@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { ListItem } from './ListItem';
 
 const ListWrap = styled.ul`
     width: 50%;
@@ -13,7 +14,7 @@ export const List = () => {
         <ListWrap>
             {
                 todos.map((todo) => (
-                    <></>
+                    <ListItem />
                 ))
             }
         </ListWrap>
