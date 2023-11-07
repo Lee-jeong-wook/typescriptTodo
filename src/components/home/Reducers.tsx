@@ -1,37 +1,40 @@
-import { InputForm } from "./InputForm";
-import { List } from "./List";
+import React, { useState } from 'react';
+import { InputForm } from './InputForm';
+import { List } from './List';
+import Todo from '../Interfaces/Interface';
 
-interface Todo{
-    todos: (number | string)[];
-    id: number;
-    text: string;
-    isComplete: boolean;
-}
-interface TodoReducer{
-    type:'AddTodo' | 'DeleteTodo' | 'EditTodo';
+interface TodoReducer {
+    type: 'AddTodo' | 'DeleteTodo' | 'EditTodo';
     payload: Todo;
 }
 
-const todoContext = (state:TodoReducer, action:TodoReducer) => {
+const todoContext = (state: TodoReducer, action: TodoReducer) => {
+    const [todos, setTodos] = useState<Todo[]>([]);
     switch (action.type) {
-        case 'AddTodo' : 
-        
-        break;
-        case 'DeleteTodo' : 
-
-        break;
-        case 'EditTodo' : 
-        
-        break;
+        case 'AddTodo':
+            const updatedTodos = [...todos, action.payload];
+            setTodos(updatedTodos);
+            break;
+        case 'DeleteTodo':
+            // 예를 들어, 삭제 로직 구현
+            const filteredTodos = todos.filter(todo => todo.id !== action.payload.id);
+            setTodos(filteredTodos);
+            break;
+        case 'EditTodo':
+            const modifiedTodos = todos.map(todo => (todo.id === action.payload.id ? action.payload : todo))
+            setTodos(modifiedTodos);
+            break;
+        default:
+            break;
     }
-    const handleFormSubmit = (data: { id: number; text: string }) => {
 
+    const handleFormSubmit = (data: Todo) => {
+        setTodos([...todos, data]);
     };
-    return(
+
+    return (
         <>
-            <InputForm 
-            onSubmit={handleFormSubmit}
-            />
+            <InputForm onSubmit={handleFormSubmit} />
             <List />
         </>
     )

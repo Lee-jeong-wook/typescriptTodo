@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Todo from '../Interfaces/Interface';
 
 const Form = styled.div`
     width: 50%;
     height: 50px;
-    // background-color: #eee;
-    // border: 1px solid #000;
-    // border-radius: 20px;
-    // box-shadow: 10px 10px 10px #555;
+    // ... 스타일링 내용 ...
 `;
+
 interface InputFormProps {
-    onSubmit: React.Dispatch<{ id: number; text: string }>;
+    onSubmit: (data: Todo) => void;
 }
 
 export const InputForm = ({ onSubmit }: InputFormProps) => {
@@ -23,8 +22,10 @@ export const InputForm = ({ onSubmit }: InputFormProps) => {
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
         if (e.key === 'Enter') {
             onSubmit({
+                // todos: [1, 2],
                 id: Math.floor(Math.random() * 10000),
-                text: value
+                text: value,
+                isComplete: false
             });
             setValue('');
         }
@@ -36,9 +37,9 @@ export const InputForm = ({ onSubmit }: InputFormProps) => {
             <label>
                 <input
                     type="text"
-                    // onKeyDown={onSubmit}
                     value={value}
                     onChange={onChange}
+                    onKeyDown={handleKeyDown}
                 />
             </label>
         </Form>
