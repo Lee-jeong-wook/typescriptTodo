@@ -7,7 +7,7 @@ const ListContents = styled.li`
     
 `
 
-export const ListItem = () => {
+export const ListItem = (text:any) => {
     return(
         <ListContents>
             <span>title</span>

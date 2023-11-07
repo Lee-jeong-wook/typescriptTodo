@@ -8,13 +8,14 @@ const ListWrap = styled.ul`
     overflow-y:scroll;
 `
 
-export const List = () => {
-    let [todos, setTodo] = useState([]);
+export const List = (todos:any) => {
     return(
         <ListWrap>
             {
-                todos.map((todo) => (
-                    <ListItem />
+                todos.map((todo:any) => (
+                    <ListItem 
+                    text={todo.text}
+                    />
                 ))
             }
         </ListWrap>

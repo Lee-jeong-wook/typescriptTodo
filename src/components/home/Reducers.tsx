@@ -8,7 +8,7 @@ interface TodoReducer {
     payload: Todo;
 }
 
-const todoContext = (state: TodoReducer, action: TodoReducer) => {
+const TodoContext = (state: TodoReducer, action: TodoReducer) => {
     const [todos, setTodos] = useState<Todo[]>([]);
     switch (action.type) {
         case 'AddTodo':
@@ -35,7 +35,9 @@ const todoContext = (state: TodoReducer, action: TodoReducer) => {
     return (
         <>
             <InputForm onSubmit={handleFormSubmit} />
-            <List />
+            <List todos={todos}/>
         </>
     )
 }
+
+export default TodoContext
