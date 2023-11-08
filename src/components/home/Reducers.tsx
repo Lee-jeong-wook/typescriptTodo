@@ -1,43 +1,45 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { InputForm } from './InputForm';
 import { List } from './List';
-import Todo from '../Interfaces/Interface';
+import  Todo  from '../Interfaces/Interface';
+
+type ActionType = 'AddTodo' | 'DeleteTodo' | 'EditTodo';
 
 interface TodoReducer {
-    type: 'AddTodo' | 'DeleteTodo' | 'EditTodo';
-    payload: Todo;
+  type: ActionType;
+  payload: Todo;
 }
 
-const TodoContext = (state: TodoReducer, action: TodoReducer) => {
-    const [todos, setTodos] = useState<Todo[]>([]);
-    switch (action.type) {
-        case 'AddTodo':
-            const updatedTodos = [...todos, action.payload];
-            setTodos(updatedTodos);
-            break;
-        case 'DeleteTodo':
-            // 예를 들어, 삭제 로직 구현
-            const filteredTodos = todos.filter(todo => todo.id !== action.payload.id);
-            setTodos(filteredTodos);
-            break;
-        case 'EditTodo':
-            const modifiedTodos = todos.map(todo => (todo.id === action.payload.id ? action.payload : todo))
-            setTodos(modifiedTodos);
-            break;
-        default:
-            break;
-    }
+const initialState: Todo[] = [];
 
-    const handleFormSubmit = (data: Todo) => {
-        setTodos([...todos, data]);
-    };
+const TodoReducer = (state: Todo[], action: TodoReducer): Todo[] => {
+  switch (action.type) {
+    case 'AddTodo':
+      return [...state, action.payload];
+    case 'DeleteTodo':
+      return state.filter((todo) => todo.id !== action.payload.id);
+    case 'EditTodo':
+      return state.map((todo) =>
+        todo.id === action.payload.id ? action.payload : todo
+      );
+    default:
+      return state;
+  }
+};
 
-    return (
-        <>
-            <InputForm onSubmit={handleFormSubmit} />
-            <List todos={todos}/>
-        </>
-    )
-}
+const TodoContext = () => {
+  const [todos, dispatch] = useReducer(TodoReducer, initialState);
+
+  const handleFormSubmit = (data: Todo) => {
+    dispatch({ type: 'AddTodo', payload: data });
+  };
+
+  return (
+    <>
+      <InputForm onSubmit={handleFormSubmit} />
+      <List todos={todos} />
+    </>
+  );
+};
 
 export default TodoContext
