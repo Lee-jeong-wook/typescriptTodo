@@ -34,10 +34,14 @@ const TodoContext = () => {
     dispatch({ type: 'AddTodo', payload: data });
   };
 
+  const handleDeleteTodo = (data: Todo) => {
+    dispatch({ type: 'DeleteTodo', payload: data})
+  }
+
   return (
     <>
       <InputForm onSubmit={handleFormSubmit} />
-      <List todos={todos} />
+      <List todos={todos} handleDelete={handleDeleteTodo}/>
     </>
   );
 };
