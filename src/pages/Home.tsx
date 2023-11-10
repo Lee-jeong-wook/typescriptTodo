@@ -4,6 +4,14 @@ import { Nav } from '../components/layout/Nav';
 import TodoContext from '../components/home/Reducers';
 import { Footer } from '../components/layout/Footer';
 import { Mobile, PC } from '../components/MediaQuery';
+import styled, { css } from 'styled-components';
+
+const StyledMain = styled.div`
+  width:100%;
+  display: flex;
+  flex-direction:column;
+  align-items:center;
+`
 
 const Home = () => {
   return (
@@ -11,7 +19,9 @@ const Home = () => {
       <Header />
       <Nav />
       <h1>홈 페이지</h1>
-      <TodoContext />
+      <StyledMain>
+        <TodoContext />
+      </StyledMain>
       <Footer />
       <Mobile>
         <div>모바일 입니다</div>

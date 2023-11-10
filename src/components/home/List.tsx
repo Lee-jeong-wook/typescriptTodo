@@ -5,6 +5,7 @@ import { Mobile, PC } from '../MediaQuery';
 
 const ListWrap = styled.ul`
   width: 50%;
+  min-width: 250px;
   height: 500px;
   overflow-y: scroll;
 `;
@@ -17,6 +18,7 @@ const ListContents = styled.li`
 `;
 const ListContentsMobile = styled.li`
   width: 100%;
+  min-width: 250px;
   height: 50px;
   background-color: #f33;
   color: #fff;
