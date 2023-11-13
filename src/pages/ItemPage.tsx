@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Header } from '../components/layout/Header';
 
 export const ItemPage = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ export const ItemPage = () => {
 
   return (
     <>
+        <Header></Header>
       <span>{value}</span>
     </>
   );
